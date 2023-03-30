@@ -1,12 +1,14 @@
-package ru.mirea.trpp_second_8.controllers;
+package ru.mirea.trppsecond8.controllers;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import ru.mirea.trppsecond8.entity.Book;
 
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /** Контроллер для работы с книгами. */
@@ -18,7 +20,11 @@ public class BookController {
 
     /** Конструктор. */
     public BookController() {
-        bookList = new CsvToBeanBuilder<Book>(new InputStreamReader(this.getClass().getResourceAsStream("/MOCK_DATA.csv"))).withType(Book.class).build().parse();
+        bookList = new CsvToBeanBuilder<Book>(
+                new InputStreamReader(
+                        Objects.requireNonNull(this.getClass().getResourceAsStream("/MOCK_DATA.csv"))
+                )
+        ).withType(Book.class).build().parse();
     }
 
     /**
